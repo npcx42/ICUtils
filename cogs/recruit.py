@@ -93,7 +93,7 @@ class RecruitModal(discord.ui.Modal):
         self.user = user
         # Краткий placeholder (не более 100 символов)
         self.application_text = discord.ui.TextInput(
-            label="Анкета заявки",
+            label="Заявка",
             style=discord.TextStyle.paragraph,
             placeholder="Возраст, время, опыт, причина, навыки, часовой пояс",
             required=True,
@@ -117,11 +117,11 @@ class RecruitModal(discord.ui.Modal):
 
         embed = discord.Embed(
             title="Новая заявка",
-            description=f"Заявка от {self.user.mention} ({self.user}):",
+            description=f"Заявка от {self.user.mention} ({self.user})",
             color=discord.Color.green()
         )
-        embed.add_field(name="Текст заявки:", value=self.application_text.value, inline=False)
-        embed.set_footer(text=f"ID пользователя: {self.user.id}")
+        embed.add_field(name="Текст заявки", value=self.application_text.value, inline=False)
+        embed.set_footer(text=f"ID: {self.user.id}")
 
         view = ApplicationDecisionView(self.user.id)
         try:

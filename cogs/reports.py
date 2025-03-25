@@ -59,16 +59,16 @@ class Reports(commands.Cog):
             self.reports["blocked_users"].remove(user_id)
             self.save_reports()
 
-    @app_commands.command(name="report", description="Создать репорт на пользователя")
+    @app_commands.command(name="report", description="Отправить репорт на пользователя")
     @app_commands.describe(
-        user="Пользователь, на которого подается жалоба", 
+        user="Пользователь", 
         reason="Причина жалобы",
         attachment="Файл с доказательством (при желании)"
     )
     async def report_command(self, interaction: discord.Interaction, user: discord.User, reason: str, attachment: discord.Attachment = None):
         reporter_id = str(interaction.user.id)
         if self.is_blocked(reporter_id):
-            await interaction.response.send_message("Вы заблокированы от отправки репортов.", ephemeral=True)
+            await interaction.response.send_message("Вы не можете отправлять репорты. :middle_finger:", ephemeral=True)
             return
 
         if not self.has_user_agreed(reporter_id):
@@ -90,7 +90,7 @@ class Reports(commands.Cog):
     async def send_report_confirmation(self, interaction: discord.Interaction, user: discord.User, reason: str, attachment: discord.Attachment = None):
         embed = discord.Embed(title="⚠️ Внимание!", color=discord.Color.red())
         embed.description = (
-            "Вы точно хотите отправить репорт? Это действие необратимо и ложные жалобы будут строго наказываться."
+            "Вы точно хотите отправить репорт? Это действие необратимо и ложные репорты будут строго наказываться."
         )
         view = ConfirmReportView(self.create_report, interaction, user, reason, attachment)
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
@@ -118,22 +118,22 @@ class Reports(commands.Cog):
         if admin_channel_id:
             admin_channel = self.bot.get_channel(admin_channel_id)
             if admin_channel:
-                admin_embed = discord.Embed(title=f"Новый репорт #{case_id}", color=0xFFAB6E)
+                admin_embed = discord.Embed(title=f"Репорт #{case_id}", color=0xFFAB6E)
                 admin_embed.add_field(name="Статус", value="На рассмотрении", inline=True)
-                admin_embed.add_field(name="Жалоба от:", value=interaction.user.mention, inline=True)
-                admin_embed.add_field(name="На пользователя:", value=user.mention, inline=True)
-                admin_embed.add_field(name="Причина:", value=reason, inline=False)
+                admin_embed.add_field(name="Репорт от", value=interaction.user.mention, inline=True)
+                admin_embed.add_field(name="На пользователя", value=user.mention, inline=True)
+                admin_embed.add_field(name="Причина", value=reason, inline=False)
                 if attachment:
                     admin_embed.add_field(name="Прикрепленный файл", value=attachment.url, inline=False)
                 admin_view = ReportResponseView(case_id, self.config, reporter_id, cog=self)
                 await admin_channel.send(embed=admin_embed, view=admin_view)
-
+        # ПОЧЕМУ ТУТ ДВА ЭМБЕДА СУКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # Anonymous channel notification
         anon_channel_id = self.config.get("anonymous_reports_channel_id")
         if anon_channel_id:
             anon_channel = self.bot.get_channel(anon_channel_id)
             if anon_channel:
-                anon_embed = discord.Embed(title=f"Новый репорт #{case_id}", color=0xFFAB6E)
+                anon_embed = discord.Embed(title=f"Репорт #{case_id}", color=0xFFAB6E)
                 anon_embed.add_field(name="Статус", value="На рассмотрении", inline=True)
                 anon_embed.add_field(name="На пользователя", value=user.mention, inline=True)
                 anon_embed.add_field(name="Причина", value=reason, inline=False)
@@ -141,7 +141,7 @@ class Reports(commands.Cog):
                 anon_view = AnonymousReportView(case_id, self.config, reporter_id, cog=self, message=message)
                 await message.edit(view=anon_view)
 
-        await interaction.followup.send(f"Репорт на {user.name} успешно создан.", ephemeral=True)
+        await interaction.followup.send(f"Репорт отправлен.", ephemeral=True)
         self.mark_user_as_agreed(reporter_id)
 
     @app_commands.command(name="reports", description="Показать список всех репортов на пользователя")
