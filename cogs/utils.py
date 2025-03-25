@@ -253,7 +253,7 @@ class Utils(commands.Cog):
         # Основная информация
         embed.add_field(name="Имя", value=f"{target} ({target.mention})", inline=False)
         embed.add_field(name="ID", value=target.id, inline=True)
-        embed.add_field(name="Бот?", value="Да" if target.bot else "Нет", inline=True)
+        embed.add_field(name="Бот?", value=":white_check_mark:" if target.bot else ":x:", inline=True)
 
         # Даты
         created_at = int(target.created_at.timestamp())

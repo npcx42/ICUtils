@@ -1,3 +1,5 @@
+внизу ложь и провокация
+
 # ICUtils Discord Bot 
 
 Hey there! This is a cool Discord bot I made for my server with some help from AI. It's packed with various features to make server management and user interaction more fun and efficient.

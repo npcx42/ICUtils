@@ -63,8 +63,8 @@ class Activity(commands.Cog):
 
     @app_commands.command(name="activity", description="Изменить статус бота")
     @app_commands.describe(
-        text="Текст статуса",
-        type="Тип активности"
+        text="Статус",
+        type="Тип"
     )
     async def change_activity(
         self,
