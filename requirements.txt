@@ -1,0 +1,15 @@
+discord.py
+beautifulsoup4
+requests
+aiocron
+qrcode
+Pillow
+opencv-python # Опционально, для работы с QR-кодами
+numpy
+python-dateutil
+aiohttp
+pytz
+google.generativeai
+pythonping
+wavelink
+spotipy

@@ -1,0 +1,33 @@
+{
+    "token": "token",
+    "channel_url": "https://t.me/s/channel",
+    "discord_bot_id": "bot id",
+    "discord_channel_id": "channel id for nm",
+    "discord_thread_name": "rename that",
+    "discord_debug_access_uid": [
+        "614824561439145989",
+        "0"
+    ],
+    "groq_api_key": "your groq api key",
+    "application_id": "app id. в коде пиздец я не знаю зачем это дублировано",
+    "allowed_guilds": [
+        "ur guild id"
+    ],
+    "mongodb_uri": "use that if you want to try experimental level system",
+    "admin_channel_id": kakashki,
+    "recruit_channel_id": kakashki,
+    "admin_response_channel_id": kakashki,
+    "anonymous_reports_channel_id": kakashki,
+    "suggestions_channel_id": kakashki,
+    "gemini_api_key": "your gemini api key",
+    "mongodb_db": "polaris",
+    "huggingface_api_key": "you dont need that",
+    "spotify_client_id": "",
+    "spotify_client_secret": "",
+    "genius_token": "im too lazy to remove this shit",
+    "lavalink_host": "lava-all.ajieblogs.eu.org",
+    "lavalink_port": 443,
+    "lavalink_password": "https://dsc.gg/ajidevserver",
+    "lavalink_secure": true,
+    "openweather_api_key": "your api key"
+}
